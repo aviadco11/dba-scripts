@@ -1,0 +1,15 @@
+
+-- readonly routing piority
+SELECT  [name], AVGRepl.availability_mode_desc,   
+AVGSrc.replica_server_name AS SourceReplica 
+, AVGRepl.replica_server_name AS ReadOnlyReplica
+, AVGRepl.read_only_routing_url AS RoutingURL
+, AVGRL.routing_priority AS RoutingPriority
+FROM sys.availability_read_only_routing_lists AVGRL
+INNER JOIN sys.availability_replicas AVGSrc ON AVGRL.replica_id = AVGSrc.replica_id
+INNER JOIN sys.availability_replicas AVGRepl ON AVGRL.read_only_replica_id = AVGRepl.replica_id
+INNER JOIN sys.availability_groups AV ON AV.group_id = AVGSrc.group_id
+where [name] = 'AG-Arix' and AVGSrc.replica_server_name = 'PADBPROD08\PRD08' --and AVGRL.routing_priority = 1
+ORDER BY RoutingPriority
+
+

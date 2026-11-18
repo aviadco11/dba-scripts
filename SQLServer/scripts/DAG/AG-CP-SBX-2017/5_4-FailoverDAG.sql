@@ -1,0 +1,16 @@
+
+--FAILOVER DAG TO 2022 Server
+
+
+--- Run on forwarder
+
+
+
+:SETVAR AGSource AG-P2P-STG
+:SETVAR AGDest AG-CP-SBX-2017
+:SETVAR ListenerSource STG-LS-P2P
+:SETVAR ListenerDest  AWS-LS-CP2-SBX
+
+ALTER AVAILABILITY GROUP [DAG_$(ListenerSource)-$(ListenerDest)] FORCE_FAILOVER_ALLOW_DATA_LOSS; 
+
+

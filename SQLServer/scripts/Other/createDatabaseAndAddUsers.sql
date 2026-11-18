@@ -1,0 +1,147 @@
+
+USE [master]
+GO
+
+/****** Object:  Database [ArixLendingBilling]    Script Date: 8/28/2023 12:59:51 PM ******/
+CREATE DATABASE [ArixLendingBilling]
+CONTAINMENT = NONE
+ON  PRIMARY 
+( NAME = N'ArixLendingBilling', FILENAME = N'E:\MSSQL\DATA\ArixLendingBilling.mdf' , SIZE = 860160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+LOG ON 
+( NAME = N'ArixLendingBilling_log', FILENAME = N'E:\MSSQL\DATA\ArixLendingBilling_log.ldf' , SIZE = 204800KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [ArixLendingBilling].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ANSI_NULL_DEFAULT OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET AUTO_CLOSE OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET  DISABLE_BROKER 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET RECOVERY SIMPLE 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET QUERY_STORE = OFF
+GO
+
+ALTER DATABASE [ArixLendingBilling] SET  READ_WRITE 
+GO
+
+
+USE [ArixLendingBilling]
+GO
+
+/****** Object:  User [svcArixLendingBillingQa]    Script Date: 8/28/2023 1:05:45 PM ******/
+CREATE USER [svcArixLendingBillingQA] FOR LOGIN [svcArixLendingBillingQA] WITH DEFAULT_SCHEMA=[dbo]
+GO
+
+USE [ArixLendingBilling];
+
+ALTER ROLE [db_datareader] ADD MEMBER [svcArixLendingBillingQA];
+ALTER ROLE [db_datawriter] ADD MEMBER [svcArixLendingBillingQA];
+ALTER ROLE [db_ddladmin] ADD MEMBER [svcArixLendingBillingQA];
+ALTER ROLE [db_executor] ADD MEMBER [svcArixLendingBillingQA];
+
+CREATE USER [CRB\secArixDevTeam] FOR LOGIN [CRB\secArixDevTeam] WITH DEFAULT_SCHEMA=[dbo]
+ALTER ROLE [db_datareader] ADD MEMBER [CRB\secArixDevTeam];
+ALTER ROLE [db_datawriter] ADD MEMBER [CRB\secArixDevTeam];
+ALTER ROLE [db_ddladmin] ADD MEMBER [CRB\secArixDevTeam];
+ALTER ROLE [db_executor] ADD MEMBER [CRB\secArixDevTeam];
+
+CREATE USER [CRBCLOUD\svcArixQA] FOR LOGIN [CRBCLOUD\svcArixQA] WITH DEFAULT_SCHEMA=[dbo]
+ALTER ROLE [db_datareader] ADD MEMBER [CRBCLOUD\svcArixQA];
+ALTER ROLE [db_datawriter] ADD MEMBER [CRBCLOUD\svcArixQA];
+ALTER ROLE [db_ddladmin] ADD MEMBER [CRBCLOUD\svcArixQA];
+ALTER ROLE [db_executor] ADD MEMBER [CRBCLOUD\svcArixQA];
+
+CREATE USER [CRBCLOUD\svcCOSLendingQA] FOR LOGIN [CRBCLOUD\svcCOSLendingQA] WITH DEFAULT_SCHEMA=[dbo]
+ALTER ROLE [db_datareader] ADD MEMBER [CRBCLOUD\svcCOSLendingQA];
+ALTER ROLE [db_datawriter] ADD MEMBER [CRBCLOUD\svcCOSLendingQA];
+ALTER ROLE [db_ddladmin] ADD MEMBER [CRBCLOUD\svcCOSLendingQA];
+ALTER ROLE [db_executor] ADD MEMBER [CRBCLOUD\svcCOSLendingQA];
+GO
+
+
